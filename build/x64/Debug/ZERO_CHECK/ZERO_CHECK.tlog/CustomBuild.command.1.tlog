@@ -1,0 +1,10 @@
+^C:\USERS\USER\ONEDRIVE\바탕 화면\WORKSPACE\DISSH 9월부터 집에서 만들거임\BUILD\CMAKEFILES\A3586FEC1AE196DE200D292AF63D3843\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/user/OneDrive/바탕 화면/workspace/DISSH 9월부터 집에서 만들거임" "-BC:/Users/user/OneDrive/바탕 화면/workspace/DISSH 9월부터 집에서 만들거임/build" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/Users/user/OneDrive/바탕 화면/workspace/DISSH 9월부터 집에서 만들거임/build/DISSH.sln"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -1,0 +1,3 @@
+C:/Users/user/OneDrive/바탕 화면/workspace/DISSH 9월부터 집에서 만들거임/build/CMakeFiles/DISSH.dir
+C:/Users/user/OneDrive/바탕 화면/workspace/DISSH 9월부터 집에서 만들거임/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/user/OneDrive/바탕 화면/workspace/DISSH 9월부터 집에서 만들거임/build/CMakeFiles/ZERO_CHECK.dir

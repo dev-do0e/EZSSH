@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\user\OneDrive\바탕 화면\workspace\DISSH 9월부터 집에서 만들거임\build\CMakeFiles\a3586fec1ae196de200d292af63d3843\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{3FFD5AA0-34AB-357F-AFF7-DCD66EC4FC74}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

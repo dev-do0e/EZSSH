@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\user\OneDrive\바탕 화면\workspace\DISSH 9월부터 집에서 만들거임\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\OneDrive\바탕 화면\workspace\DISSH 9월부터 집에서 만들거임\JSON_PARSING\JsonParsing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\OneDrive\바탕 화면\workspace\DISSH 9월부터 집에서 만들거임\REST_API_POST\Post.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\user\OneDrive\바탕 화면\workspace\DISSH 9월부터 집에서 만들거임\REST_API_GET\Get.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\user\OneDrive\바탕 화면\workspace\DISSH 9월부터 집에서 만들거임\json.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\OneDrive\바탕 화면\workspace\DISSH 9월부터 집에서 만들거임\JSON_PARSING\JsonParsing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\OneDrive\바탕 화면\workspace\DISSH 9월부터 집에서 만들거임\REST_API_POST\Post.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\user\OneDrive\바탕 화면\workspace\DISSH 9월부터 집에서 만들거임\REST_API_GET\Get.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\user\OneDrive\바탕 화면\workspace\DISSH 9월부터 집에서 만들거임\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{C946AA55-33B5-37F7-8E33-65B86E015B32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{1723BF2A-EA2B-3A6C-87F1-BE0534D95945}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

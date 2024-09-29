@@ -1,0 +1,125 @@
+[
+    {
+        "alias": "SOUL_QC_21",
+        "deviceip": "192.168.10.21",
+        "ethtests": {
+            "command": "setethernet",
+            "primarydns": "",
+            "scenarios": [
+                {
+                    "alias": "SOUL_QC_21",
+                    "gateway": "192.168.10.1",
+                    "interval": 60,
+                    "ip": "192.168.10.21",
+                    "mac": "581122324662",
+                    "name": "TCP_TEST",
+                    "scenario": "TCP RTT(9993)",
+                    "scheduleend": "2359",
+                    "schedulestart": "0000",
+                    "scheduleweekdays": 127,
+                    "server": "192.168.10.15:9993",
+                    "serverIp": "192.168.10.15",
+                    "serverPort": 9993,
+                    "threshold1": 0,
+                    "threshold2": 0
+                },
+                {
+                    "alias": "SOUL_QC_21",
+                    "gateway": "192.168.10.1",
+                    "interval": 60,
+                    "ip": "192.168.10.21",
+                    "mac": "581122324662",
+                    "name": "UDP_TEST",
+                    "scenario": "UDP RTT(9992)",
+                    "scheduleend": "2359",
+                    "schedulestart": "0000",
+                    "scheduleweekdays": 127,
+                    "server": "192.168.10.15:9992",
+                    "serverIp": "192.168.10.15",
+                    "serverPort": 9992,
+                    "threshold1": 0,
+                    "threshold2": 0
+                },
+                {
+                    "alias": "SOUL_QC_21",
+                    "gateway": "192.168.10.1",
+                    "interval": 60,
+                    "ip": "192.168.10.21",
+                    "mac": "581122324662",
+                    "name": "Latency_TEST",
+                    "scenario": "CtoC TCP(9993)",
+                    "scheduleend": "2359",
+                    "schedulestart": "0000",
+                    "scheduleweekdays": 127,
+                    "server": "192.168.10.15:9993",
+                    "serverIp": "192.168.10.15",
+                    "serverPort": 9993,
+                    "threshold1": 0,
+                    "threshold2": 0
+                }
+            ],
+            "secondarydns": ""
+        },
+        "mac": "58:11:22:32:46:62",
+        "records": {
+            "Latency_TEST": {
+                "from": 1725377429,
+                "savedrecords": 21172,
+                "to": 1726647742
+            },
+            "TCP_TEST": {
+                "from": 1725377422,
+                "savedrecords": 20779,
+                "to": 1726647737
+            },
+            "UDP_TEST": {
+                "from": 1725377423,
+                "savedrecords": 21565,
+                "to": 1726647739
+            }
+        },
+        "responsive": true,
+        "scenarios": [
+            {
+                "l4": "tcp",
+                "name": "CtoC TCP(9993)",
+                "viewhint": "rtt"
+            },
+            {
+                "l4": "icmp",
+                "name": "Latency(0)",
+                "viewhint": "rtt"
+            },
+            {
+                "l4": "tcp",
+                "name": "TCP Fast Reconnection(9993)",
+                "viewhint": "rtt"
+            },
+            {
+                "l4": "tcp",
+                "name": "TCP RTT(9993)",
+                "viewhint": "rtt"
+            },
+            {
+                "l4": "udp",
+                "name": "UDP Rapid Fire(9992)",
+                "viewhint": "rtt"
+            },
+            {
+                "l4": "udp",
+                "name": "UDP RTT(9992)",
+                "viewhint": "rtt"
+            },
+            {
+                "l4": "tcp",
+                "name": "TCP BPS Download(9994)",
+                "viewhint": "download"
+            },
+            {
+                "l4": "tcp",
+                "name": "TCP BPS Upload(9994)",
+                "viewhint": "upload"
+            }
+        ]
+    }
+]

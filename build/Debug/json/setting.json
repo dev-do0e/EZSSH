@@ -1,0 +1,11 @@
+{
+  "lampad": {
+    "url": "http://192.168.10.15:8080",
+    "id": "lampad",
+    "password": "1q2w3e!Q@W#E"
+  },
+  "lampadx": {
+    "id": "linaro",
+    "password": "1q2w3e!Q@W#E"
+  }
+}
