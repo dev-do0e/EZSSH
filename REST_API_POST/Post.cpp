@@ -23,19 +23,19 @@ void Post::postRequest() {
     curl = curl_easy_init();
     
     if (!curl) {
-        std::cerr << "curl_easy_init() failed. Could not initialize CURL object." << std::endl;
+        std::cerr << "curl_easy_init() failed. Could not initialize CURL object. (Post.cpp 26)" << std::endl;
         return;
     }
 
     //debugging
-    curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
+    //curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
 
-    // setting HTTP POST
+    //Set url and jsonData to send HTTP POST.
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl, CURLOPT_POSTFIELDS, jsonData.c_str());
     curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, (long)jsonData.length());
 
-    // setting header
+    //Setting headers
     struct curl_slist* headers = NULL;
     headers = curl_slist_append(headers, "Content-Type: application/json");
     curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
@@ -44,22 +44,22 @@ void Post::postRequest() {
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &responseBuffer);
 
-    curl_easy_setopt(curl, CURLOPT_COOKIEFILE, "cookie.jar");  // 존재하는 파일로부터 쿠키 읽기 (파일이 없으면 생성됨)
-    curl_easy_setopt(curl, CURLOPT_COOKIEJAR, "cookie.jar");   // 쿠키를 파일에 저장
+    curl_easy_setopt(curl, CURLOPT_COOKIEFILE, "cookie.jar");  // Read cookie from existing file (created if file does not exist)
+    curl_easy_setopt(curl, CURLOPT_COOKIEJAR, "cookie.jar");   // Save cookie to file
 
     // Perform the HTTP request
     res = curl_easy_perform(curl);
 
-    //clear header list memory
-    curl_slist_free_all(headers);
-
     if (res == CURLE_OK) {
-        //std::cout << "Request successful. Response:\n" << response_buffer << std::endl;
-        std::cout << std::endl << std::endl << "post res is find ^^7" << std::endl << std::endl << std::endl;
+        //Now, when the response arrives, save the response here in the login.json file using the saveResponseToFile function.
+        std::cout << "Post Request to retrieve Civet7Token was successful."<< std::endl;
         saveResponseToFile("json/login.json");
     } else {
         std::cerr << "Request failed: " << curl_easy_strerror(res) << std::endl;
     }
+
+    //clear header list memory
+    curl_slist_free_all(headers);
 
     curl_easy_cleanup(curl);
 }
