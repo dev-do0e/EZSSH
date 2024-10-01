@@ -52,7 +52,7 @@ void Post::postRequest() {
 
     if (res == CURLE_OK) {
         //Now, when the response arrives, save the response here in the login.json file using the saveResponseToFile function.
-        std::cout << "Post Request to retrieve Civet7Token was successful."<< std::endl;
+        std::cout << "Post Request to retrieve Civet7Token was successful. (Post.cpp 55)"<< std::endl;
         saveResponseToFile("json/login.json");
     } else {
         std::cerr << "Request failed: " << curl_easy_strerror(res) << std::endl;

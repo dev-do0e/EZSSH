@@ -10,6 +10,7 @@ void JsonParsing::getLampadInfo(Lampad &lampad){
 
     if(!fin.is_open()){
         std::cout << "JsonParsing error | setting.json does not exist in the path." << std::endl;
+        system("pause");
     }
 
     json j;
@@ -31,6 +32,7 @@ void JsonParsing::getLampadxInfo(Lampadx &lampadx){
 
     if(!fin.is_open()){
         std::cout << "JsonParsing error | setting.json does not exist in the path." << std::endl;
+        system("pause");
     }
 
     json j;
@@ -38,6 +40,31 @@ void JsonParsing::getLampadxInfo(Lampadx &lampadx){
 
     lampadx.lampadxId = j["lampad"]["id"];
     lampadx.lampadxPassword = j["lampad"]["password"];
+
+    fin.close();
+
+}
+
+void JsonParsing::getLampadxIp(std::vector<std::string> &lampadxIpResponsiveTrue, std::vector<std::string> &lampadxIpResponsiveFalse){
+
+    std::string file = "json/paradox.json";
+    std::ifstream fin(file);
+
+    if(!fin.is_open()){
+        std::cout << "JsonParsing error | paradox.json does not exist in the path." << std::endl;
+
+    }
+
+    json j;
+    fin >> j;
+
+    for(const auto& lampadx : j){
+        if(lampadx["responsive"]){
+            lampadxIpResponsiveTrue.push_back(lampadx["deviceip"]);
+        }else if(!lampadx["responsive"]){
+            lampadxIpResponsiveFalse.push_back(lampadx["deviceip"]);
+        }
+    }
 
     fin.close();
 

@@ -27,8 +27,7 @@ class JsonParsing {
         void getLampadxInfo(Lampadx &lampadx);
 
         //Get the IP of Lampad X where the response is true in parardox.json
-        void getLampadxIpResponsiveTrue(std::vector<std::string> &lampadxIpResponsiveTrue);
-        void getLampadxIpResponsiveFalse(std::vector<std::string> &lampadxIpResponsiveFalse);
+        void getLampadxIp(std::vector<std::string> &lampadxIpResponsiveTrue, std::vector<std::string> &lampadxIpResponsiveFalse);
 
 };
 
