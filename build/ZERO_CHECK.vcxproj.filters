@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <CustomBuild Include="C:\Users\user\OneDrive\바탕 화면\workspace\DISSH 9월부터 집에서 만들거임\build\CMakeFiles\a3586fec1ae196de200d292af63d3843\generate.stamp.rule">
+    <CustomBuild Include="C:\Users\user\Desktop\workspace\EZSSH\build\CMakeFiles\57048856885b82d5559c664434e2ebd5\generate.stamp.rule">
       <Filter>CMake Rules</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="CMake Rules">
-      <UniqueIdentifier>{3FFD5AA0-34AB-357F-AFF7-DCD66EC4FC74}</UniqueIdentifier>
+      <UniqueIdentifier>{DC3B9AB8-AD56-3ED2-899B-0843DEAF9B82}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

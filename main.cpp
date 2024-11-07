@@ -1,71 +1,121 @@
 #include <iostream>
 
 #include "JSON_PARSING/JsonParsing.h"
-#include "REST_API_POST/Post.h"
-#include "REST_API_GET/Get.h"
+#include "LIBSSH_SCP/Scp.h"
+int main(){
+   //Start EZSSH
 
-int main() {
-
-   //1. get Lampad inforamation by setting.json
+   //Retrieve Lampad-X information to run EZSSH from setting.json
+   //1. Get Lampad-X information from setting.json
    JsonParsing jsonParsing;
-   JsonParsing::Lampad lampad;
-   jsonParsing.getLampadInfo(lampad);
+   JsonParsing::Lampadx lampadx;
+   jsonParsing.getLampadxInfo(lampadx);
 
-   std::cout << "This is information about the lampad server you set up." << std::endl;
-   std::cout << "lampad url : " << lampad.lampadUrl << std::endl;
-   std::cout << "lampad id : " << lampad.lampadId << std::endl;
-   std::cout << "lampad password : " << lampad.lampadPassword << std::endl;
+   //[시작!]
+   std::cout << "EZSSH" << std::endl << std::endl;
 
-   std::cout << std::endl;
-   //In setting.json, it checks whether the client has set the settings as desired and shuts down the system if the settings are not done correctly.
-   bool answerCheck = true;
-   while(answerCheck){
-      std::cout << "Did you correctly enter the Lampad server information required for DISSH operation? If correct, please enter 'y', if not, enter 'n'. (without '')" << std::endl;
-      std::string answer;
-      std::cin >> answer;
+   //2.EZSSH를 실행시켰으면 setting.json에 있는 Lampad-X의 정보를 보여줘
+   std::cout << "lampad-X ID : " << lampadx.lampadxId << std::endl;
+   std::cout << "lampad-X IP : " << lampadx.lampadxIp << std::endl;
+   std::cout << "lampad-X PW : " << lampadx.lampadxPw << std::endl << std::endl;
 
-      if(answer == "Y" || answer == "y"){
-         answerCheck = false;
-      }else if (answer == "N" || answer == "n"){
-         answerCheck = false;
-         std::cout << "Please enter lampad server information correctly in setting.json." << std::endl;
-         system("pause");
-         return 0;
-      }
+   //3. setting.json의 정보로 Lampad-X에 cage와 Faklient 파일 교체 시작
+   Scp scp(lampadx.lampadxIp, lampadx.lampadxId, lampadx.lampadxPw);
+
+   if (!scp.connect()) {
+         std::cerr << "Failed to connect to SSH server." << std::endl;
+         return -1;
    }
 
-   std::cout << std::endl;
-   //2. get Lampad Civet7Token for lampad login
-   //   Civet7Token is required to use the rest API
-   std::string postUrl = lampad.lampadUrl + "/q/login/";
-   std::string jsonData = "{\"username\":\""+lampad.lampadId+"\",\"password\":\""+lampad.lampadPassword+"\"}";
-   Post post(postUrl, jsonData);
-   post.postRequest();
-
-   std::cout << std::endl;
-   //3. Retrieve information about lampad-x connected to lampad
-   //   The file will be uploaded to lampad-X where responsive is true.
-   std::string getUrl = lampad.lampadUrl + "/q/paradox/";
-   Get get(getUrl);
-   get.getRequest();
-
-   std::cout << std::endl;
-   std::vector<std::string> lampadxIpResponsiveTrue;
-   std::vector<std::string> lampadxIpResponsiveFalse;
-   //4. Assuming that operation 3 has been completed successfully, lampad-X with responsive set to true will be imported from paradox.json.
-   jsonParsing.getLampadxIp(lampadxIpResponsiveTrue, lampadxIpResponsiveFalse);
-   std::cout << "This is the IP of Lampad-X that is currently connected to the Lampad Server and can communicate with it." << std::endl;
-   for(int i = 0; i < lampadxIpResponsiveTrue.size(); i++){
-      std::cout << lampadxIpResponsiveTrue[i] << std::endl;
+   // 파일 교체 전에 faklient.service 정지
+   std::string stopFaklientService = "sudo systemctl stop faklient.service";
+   if(!scp.execute_remote_command(stopFaklientService)) {
+      std::cerr << "Failed to execute remote command: " << stopFaklientService << std::endl;
+   } else {
+      std::cout << stopFaklientService << " | success" << std::endl;
    }
+
+   //cage part
    std::cout << std::endl;
-   std::cout << "This is the IP of Lampad-X, which is connected to the Lampad Server but is currently unable to communicate." << std::endl;
-   for(int i = 0; i < lampadxIpResponsiveFalse.size(); i++){
-      std::cout << lampadxIpResponsiveFalse[i] << std::endl;
+   std::cout << "cage part" << std::endl;
+
+   // DISSH로 변경할 cage를 LampadX home 경로에 위치
+   if (!scp.transfer_file("./files/cage.exe", "/home/linaro", "cage")) {   
+      std::cerr << "Failed to transfer file: " << "./files/cage" << std::endl;
+   } else {
+      std::cout << "scp ./files/cage.exe " << lampadx.lampadxId << "@" << lampadx.lampadxIp << ":/home/linaro/" << " | success" << std::endl;
+   }
+
+   // cage 변경
+   std::string mvCage = "sudo mv /home/linaro/cage /Paradox/";
+   if(!scp.execute_remote_command(mvCage)) {
+      std::cerr << "Failed to execute remote command: " << mvCage << std::endl;
+   } else {
+      std::cout << mvCage << " | success" << std::endl;
+   }
+
+   // cage 권한 변경
+   std::string chmodCage = "sudo chmod 755 /Paradox/cage";
+   if(!scp.execute_remote_command(chmodCage)) {
+      std::cerr << "Failed to execute remote command: " << chmodCage << std::endl;
+   } else {
+      std::cout << chmodCage << " | success" << std::endl;
+   }
+
+   // cage 소유권 변경
+   std::string chownCage = "sudo chown root:root /Paradox/cage";
+   if(!scp.execute_remote_command(chownCage)) {
+      std::cerr << "Failed to execute remote command: " << chownCage << std::endl;
+   } else {
+      std::cout << chownCage << " | success" << std::endl;
+   }
+
+   //Faklient part
+   std::cout << std::endl;
+   std::cout << "Faklient part" << std::endl;
+
+   // DISSH로 변경할 Faklient를 LampadX home 경로에 위치
+   if (!scp.transfer_file("./files/Faklient.exe", "/home/linaro", "Faklient")) {
+      std::cerr << "Failed to transfer file: " << "./files/Faklient" << std::endl;
+   } else {
+      std::cout << "scp ./files/Faklient.exe " << lampadx.lampadxId << "@" << lampadx.lampadxIp << ":/home/linaro/" << " | success" << std::endl;
+   }
+
+   // Faklient 변경
+   std::string mvFaklient = "sudo mv /home/linaro/Faklient /Paradox/";
+   if(!scp.execute_remote_command(mvFaklient)) {
+      std::cerr << "Failed to execute remote command: " << mvFaklient << std::endl;
+   } else {
+      std::cout << mvFaklient << " | success" << std::endl;
+   }
+
+   // Faklient 권한 변경
+   std::string chmodFaklient = "sudo chmod 755 /Paradox/Faklient";
+   if(!scp.execute_remote_command(chmodFaklient)) {
+      std::cerr << "Failed to execute remote command: " << chmodFaklient << std::endl;
+   } else {
+      std::cout << chmodFaklient << " | success" << std::endl;
+   }
+
+   // Faklient 소유권 변경
+   std::string chownFaklient = "sudo chown root:root /Paradox/Faklient";
+   if(!scp.execute_remote_command(chownFaklient)) {
+      std::cerr << "Failed to execute remote command: " << chownFaklient << std::endl;
+   } else {
+      std::cout << chownFaklient << " | success" << std::endl;
+   }
+      
+   std::cout << std::endl;
+
+   // 파일 교체 후에 faklient.service 재시작
+   std::string restartFaklientService = "sudo systemctl restart faklient.service";
+   if(!scp.execute_remote_command(restartFaklientService)) {
+      std::cerr << "Failed to execute remote command: " << restartFaklientService << std::endl;
+   } else {
+      std::cout << restartFaklientService << " | success" << std::endl;
    }
 
    system("pause");
 
    return 0;
-
 }

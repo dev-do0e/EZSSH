@@ -1,40 +1,33 @@
 cmake_minimum_required(VERSION 3.30.3)
 
-project(DISSH)
+project(EZSSH)
 
 include_directories("curl_x64-windows/include")
 link_directories("curl_x64-windows/lib")
 
-
 include_directories("libssh_x64_windows/include")
 link_directories("libssh_x64_windows/lib")
+
+MESSAGE ( "\nproject name : " ${CMAKE_PROJECT_NAME} "\n")
 
 set(JSON_PARSING
 JSON_PARSING/JsonParsing.h
 JSON_PARSING/JsonParsing.cpp
 )
 
-set(REST_API_POST
-REST_API_POST/Post.h
-REST_API_POST/Post.cpp
+set(LIBSSH_SCP
+LIBSSH_SCP/Scp.h
+LIBSSH_SCP/Scp.cpp
 )
 
-set(REST_API_GET
-REST_API_GET/Get.h
-REST_API_GET/Get.cpp
-)
+add_executable(EZSSH
 
-MESSAGE ( "\nproject name : " ${CMAKE_PROJECT_NAME} "\n")
-
-add_executable(DISSH
+${JSON_PARSING}
+${LIBSSH_SCP}
 
 main.cpp
 json.hpp
 
-${JSON_PARSING}
-${REST_API_POST}
-${REST_API_GET}
-
 )
 
-target_link_libraries(DISSH libcurl ssh)
+target_link_libraries(EZSSH ssh)
